@@ -17,19 +17,37 @@ using std::cout;
 using std::cin;
 
 
-// TODO: Provide a declaration (a prototype) of the method calcSumFromStream() here.
-
+double calcSumFromStream(std::istream& istr);
 
 int main()
 {
     cout << "Workshop 6 Example 2\n\n";
 
-    // TODO: Implement main method here.
-
+    // input data from std::cin and output result to std::cout
+    cout << "Input numbers to calculate sum: ";
+    cout << "Sum is: " << calcSumFromStream(cin);
 
     cout << "\n\n";
+
     return 0;
 }
 
-// TODO: Implement calcSumFromStream() method here.
+double calcSumFromStream(std::istream& istr)
+{
+    // we have to use stringstream to read a whole line
+    std::string s;
+    std::getline(istr, s);
+    std::stringstream ss(s);
+
+    double sum = 0;
+
+    while(ss.good() && !ss.eof())
+    {
+        double  cur;
+        ss >> cur;
+        sum += cur;
+    }
+
+    return sum;
+}
 

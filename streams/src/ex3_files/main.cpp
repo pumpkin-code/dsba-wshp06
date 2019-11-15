@@ -7,7 +7,7 @@
  * and sums up numbers from each line. The result is output to a given
  * output stream (given by reference) ostream&.
  *
- * Reuse function calcSumFromStream() developed in ex.2 to deal with individual lines!
+ * Reuse function calcSumFromStream() developed in ex. to deal with individual lines!
  *
  * In the main program provide two different file stream (both text files) to
  * read from and output to data, correspondingly.
@@ -24,11 +24,26 @@ using std::cout;
 using std::string;
 using std::stringstream;
 
-// TODO: Provide a declaration (a prototype) of the method calcSumFromStream() here.
+// prototype
+double calcSumFromStream(std::istream& istr);
 
 
-// TODO: Provide a definition of the method sumLines() here.
+void sumLines(std::istream& istr, std::ostream& ostr)
+{
+    // read line by line
+    while(istr.good() && !istr.eof())
+    {
+        string s;
+        std::getline(istr, s);
+        if(s.empty())
+            return;                 // empty string breaks the execution
 
+        // otherwise its not empty
+        stringstream ss(s);
+        double sum = calcSumFromStream(ss);
+        ostr << sum << std::endl;
+    }
+}
 
 
 int main()
@@ -39,7 +54,23 @@ int main()
     cout << "Workshop 6 Example 3\n\n";
 
 
-    // TODO: Implement main method here.
+    const char INP_FILE_NAME[] = "f:\\HSE\\training\\DSBA\\2019-20\\programming\\workhops\\06\\code\\streams\\src\\ex3_files\\inp.txt";
+    std::ifstream inpFile;
+    inpFile.open (INP_FILE_NAME);           // open the file
+
+    sumLines(inpFile, cout);                // outputs result to screen
+
+    inpFile.clear();                        // clear flags
+    inpFile.seekg(0);                       // read pos — to the beginning
+
+    // for output file
+    const char OUTP_FILE_NAME[] = "f:\\HSE\\training\\DSBA\\2019-20\\programming\\workhops\\06\\code\\streams\\src\\ex3_files\\outp.txt";
+    std::ofstream outpFile(OUTP_FILE_NAME); // init right here
+    // onpFile.open(INP_FILE_NAME);         // do not need to, cause already open
+    sumLines(inpFile, outpFile);            // outputs result to a file
+
+    outpFile.close();
+    inpFile.close();
 
 
     cout << "\n\n";
@@ -47,4 +78,22 @@ int main()
     return 0;
 }
 
-// TODO: Implement calcSumFromStream() method here.
+// implementation
+double calcSumFromStream(std::istream& istr)
+{
+    // we have to use stringstream to read a whole line
+    std::string s;
+    std::getline(istr, s);
+    std::stringstream ss(s);
+
+    double sum = 0;
+
+    while(ss.good() && !ss.eof())
+    {
+        double  cur;
+        ss >> cur;
+        sum += cur;
+    }
+
+    return sum;
+}
