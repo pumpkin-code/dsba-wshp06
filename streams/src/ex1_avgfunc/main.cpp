@@ -67,16 +67,16 @@ int main()
     cout << "\n";
 
     double e2[5] = {10.1, 2.1e2, 3.3e-1, 40.4}; // different forms of float consts
-     size_t e2Sz = sizeof(e2) / sizeof(e2[0]);
-     double e2Avg = calcAvg(e2, e2Sz);
+    size_t e2Sz = sizeof(e2) / sizeof(e2[0]);
+    double e2Avg = calcAvg(e2, e2Sz);
 
-     // prints it
-     cout << "Arr2: ";
-     printDblArray(e2, e2Sz);
-     cout << "; its avg = " << e2Avg;
+    // prints it
+    cout << "Arr2: ";
+    printDblArray(e2, e2Sz);
+    cout << "; its avg = " << e2Avg;
 
-     // TODO: HW: here we have the same pattern for both arrays.
-     // Refactor the program (create a function if needed) to generalize cases.
+    // TODO: HW: here we have the same pattern for both arrays.
+    // Refactor the program (create a function if needed) to generalize cases.
 
 
     cout << "\n\n";
